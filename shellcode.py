@@ -7,8 +7,6 @@ from subprocess import Popen, PIPE
 today = date.today()
 d2 = today.strftime("%B %d, %Y")
 
-starter = Style.BRIGHT +"Usage : "+ Fore.GREEN +"(example)" + Fore.BLUE + "python popcat.py popcat.txt"
-
 if platform.system()=='Linux':
     os.system('clear')
     sys.stdout.write("\x1b]2;Binary File Shellcoder\x07")
