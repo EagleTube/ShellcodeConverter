@@ -42,21 +42,35 @@ def position(arr,types):
 
 def dumpBinary(target,o):
     try:
-        dumpFile = target + "_dump.txt"
-        p = Popen(['objdump','-d',target],stdout=PIPE,shell=True)
-        (out, err) = p.communicate()
-        f = open(dumpFile,"w")
-        print(Style.BRIGHT+Fore.YELLOW+"Disassembling binary file...")
-        f.write(out.decode('utf-8').replace("\n",""))
-        f.close()
-        if(os.path.isfile(dumpFile)):
-            print(Style.BRIGHT+Fore.BLUE+"Output dumped in {} ".format(dumpFile))
-            ConvertShellCode(dumpFile,o)
-            return True
+        if(os.path.isfile(target)):
+            dumpFile = target + "_dump.txt"
+            try:
+                p = Popen(['objdump','-d',target],stdout=PIPE,shell=True)
+                (out, err) = p.communicate()
+            except:
+                print(Style.BRIGHT+Fore.RED+"File cannot be read!")
+                try:
+                    sys.exit(0)
+                except:
+                    os._exit(0)
+            f = open(dumpFile,"w")
+            print(Style.BRIGHT+Fore.YELLOW+"Disassembling binary file...")
+            f.write(out.decode('utf-8').replace("\n",""))
+            f.close()
+            if(os.path.isfile(dumpFile)):
+                print(Style.BRIGHT+Fore.BLUE+"Output dumped in {} ".format(dumpFile))
+                ConvertShellCode(dumpFile,o)
+                return True
+            else:
+                return False
         else:
-            return False
+            print(Style.BRIGHT+Fore.RED+"File may not found! please check your target file path")
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
     except:
-        print(Style.BRIGHT+Fore.RED+"File may not found! please check your target file path")
+        print(Style.BRIGHT+Fore.RED+"File may not found or cannot be read! please check your target file path")
 
 def ConvertShellCode(fname,output):
     filtered = []
