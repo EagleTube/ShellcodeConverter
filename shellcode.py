@@ -11,10 +11,10 @@ starter = Style.BRIGHT +"Usage : "+ Fore.GREEN +"(example)" + Fore.BLUE + "pytho
 
 if platform.system()=='Linux':
     os.system('clear')
-    sys.stdout.write("\x1b]2;POPCAT SPAM Loaded V2.0\x07")
+    sys.stdout.write("\x1b]2;Binary File Shellcoder\x07")
 else:
     os.system('cls')
-    ctypes.windll.kernel32.SetConsoleTitleW(f'POPCAT SPAM Loaded V2.0 | {d2}')
+    ctypes.windll.kernel32.SetConsoleTitleW(f'Binary File Shellcoder | {d2}')
 
 print(f"""{Style.BRIGHT + Fore.RED}
  ██████╗ ██████╗  █████╗  ██████╗  ██████╗ ███╗   ██╗███████╗ ██████╗ ██████╗  ██████╗███████╗   ██╗ ██████╗ 
