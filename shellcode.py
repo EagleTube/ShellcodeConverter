@@ -45,7 +45,7 @@ def dumpBinary(target,o):
         if(os.path.isfile(target)):
             try:
                 if platform.system()=='Linux':
-                    dumpFile = target + "_dump"
+                    dumpFile = target + "_dump.txt"
                     p = Popen(['objdump -d '+target],stdout=PIPE,shell=True)
                     (out, err) = p.communicate()
                     f = open(dumpFile,"w")
@@ -90,7 +90,7 @@ def ConvertShellCode(fname,output):
     s.write("---- BEGIN OF SHELLCODE -----\n")
     for line in lines:
         xsm = line.replace("\n","")
-        if 'file format' in xsm or 'Disassembly' in xsm or '...' in xsm or ('<' in xsm and '>' in xsm):
+        if 'file format' in xsm or 'Disassembly' in xsm or '...' in xsm or '>:' in xsm:
             filtered.append(xsm)
         else:
             if(xsm!=""):
