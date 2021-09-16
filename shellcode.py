@@ -43,19 +43,27 @@ def position(arr,types):
 def dumpBinary(target,o):
     try:
         if(os.path.isfile(target)):
-            dumpFile = target + "_dump.txt"
             try:
-                p = Popen(['objdump','-d',target],stdout=PIPE,shell=True)
-                (out, err) = p.communicate()
+                if platform.system()=='Linux':
+                    dumpFile = target + "_dump"
+                    p = Popen(['objdump -d '+target],stdout=PIPE,shell=True)
+                    (out, err) = p.communicate()
+                    f = open(dumpFile,"w")
+                    print(Style.BRIGHT+Fore.YELLOW+"Disassembling binary file...")
+                    f.write(out.decode('utf-8'))
+                else:
+                    dumpFile = target + "_dump.txt"
+                    p = Popen(['objdump','-d',target],stdout=PIPE,shell=True)
+                    (out, err) = p.communicate()   
+                    f = open(dumpFile,"w")
+                    print(Style.BRIGHT+Fore.YELLOW+"Disassembling binary file...")
+                    f.write(out.decode('utf-8').replace("\n",""))
             except:
                 print(Style.BRIGHT+Fore.RED+"File cannot be read!")
                 try:
                     sys.exit(0)
                 except:
                     os._exit(0)
-            f = open(dumpFile,"w")
-            print(Style.BRIGHT+Fore.YELLOW+"Disassembling binary file...")
-            f.write(out.decode('utf-8').replace("\n",""))
             f.close()
             if(os.path.isfile(dumpFile)):
                 print(Style.BRIGHT+Fore.BLUE+"Output dumped in {} ".format(dumpFile))
