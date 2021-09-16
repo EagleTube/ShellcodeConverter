@@ -103,13 +103,7 @@ def ConvertShellCode(fname,output):
                         s.write("\\x"+shellcode[i])
 
     s.write("\n---- END OF SHELLCODE -----")
-                
-    print("\n")
-    if(os.path.isfile(output)):
-        j = open(output,"r")
-        print(Style.BRIGHT+Fore.GREEN+j.read())
-        print("\n")
-        print(Style.BRIGHT+Fore.BLUE+"Hex Shellcode successfully created in '{}'".format(output))
+    print(Style.BRIGHT+Fore.BLUE+"Hex Shellcode successfully created in '{}'".format(output))
     dump.close()
     s.close()
 
@@ -129,7 +123,12 @@ else:
         target = position(sys.argv,"-f")
         output = position(sys.argv,"-o")
         if(dumpBinary(sys.argv[target],sys.argv[output])==True):
-            print(Style.BRIGHT+Fore.GREEN+"Hexdump & Shellcode process done!"+Style.BRIGHT+Fore.WHITE+" ")
+            print(Style.BRIGHT+Fore.GREEN+"Hexdump & HexShellCode process done!"+Style.BRIGHT+Fore.WHITE+" ")
+            if(os.path.isfile(sys.argv[output])):
+                j = open(sys.argv[output],"r")
+                print("\n")
+                print(Style.BRIGHT+Fore.GREEN+j.read())
+                print("\n"+Style.BRIGHT+Fore.WHITE)
         else:
             print(Style.BRIGHT+Fore.RED+"Failed to convert! check your arguments and filepath"+Style.BRIGHT+Fore.WHITE+" ")
     except:
